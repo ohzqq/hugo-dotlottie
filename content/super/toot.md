@@ -1,5 +1,5 @@
 ---
-title: '{{ replace .File.ContentBaseName `-` ` ` | title }}'
+title: 'Toot'
 layout: dotlottie
 ---
 {{< dotlottie/dotlottie_player 

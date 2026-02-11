@@ -1,9 +1,8 @@
 ---
-title: '{{ replace .File.ContentBaseName `-` ` ` | title }}'
-layout: dotlottie
+title: 'Poot'
 ---
 {{< dotlottie/dotlottie_player 
-Src="" 
+Src="/eg/suzanne.lottie" 
 BgColor=""
 BgImg=""
 NoControls=""
