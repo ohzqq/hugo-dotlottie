@@ -32,12 +32,13 @@
 {{ with .Get "Autoplay" }}
   {{$params = $params | append "Autoplay=true" }}
 {{end}}
-  {{$q := $params "&"}}
-  {{$src := printf "%s?%s" site.BaseURL $q}}
+  {{$q := delimit $params "&"}}
+  {{$p := urls.JoinPath site.BaseURL "gottie" "player.html"}}
+  {{$src := printf "%s?%s" $p $q}}
 
 <div class="dotlottie-container" 
      style="position: relative; overflow: hidden;
-            {{with .Get "AspectRatio"}}aspect-ratio: {{.}};{{end}} width: 100%; display: block; outline: none;"> 
+            {{with .Get "AspectRatio"}}aspect-ratio: {{. | safeCSS}};{{end}} width: 100%; display: block; outline: none;"> 
 <iframe class="player-frame" 
         allowfullscreen
         style="border: none; position: absolute; width: 100%; height: 100%; top: 0; left: 0; bottom: 0; right: 0;" 
