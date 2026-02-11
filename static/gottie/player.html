@@ -1,0 +1,25 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="gottie/gottie.css">
+</head>
+
+<body>
+
+<div class="dot-player" id="gottie"></div>
+
+<script> 
+</script>
+<script type="module">
+  import {DotPlayer} from "./gottie/dot-player.js";
+  const player = new DotPlayer()
+  window.dotPlayer = player
+  player.init('gottie')
+</script>
+
+</body>
+
+</html>

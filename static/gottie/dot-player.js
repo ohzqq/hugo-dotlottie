@@ -1,7 +1,7 @@
 import {
   DotLottie,
   DotLottieWorker
-} from "../libs/dotlottie.js";
+} from "../dotlottie/dotlottie.js";
 
 const PLAY = "play"
 const PAUSE = "pause"
@@ -42,7 +42,7 @@ class DotPlayer {
   assetDir = '/assets/';
 
   constructor() {
-    DotLottie.setWasmUrl(window.location.origin + '../libs/dotlottie-player.wasm');
+    DotLottie.setWasmUrl(window.location.origin + '../dotlottie/dotlottie-player.wasm');
     this.player = document.querySelector('.dot-player');
 	  this.msgListener();
   }
