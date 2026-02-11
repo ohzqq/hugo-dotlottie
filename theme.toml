@@ -3,10 +3,7 @@ license = "MIT"
 description = "theme for playing dotLottie animations"
 
 # The home page of the theme, where the source can be found.
-homepage = "https://github.com/gohugoio/gohugoioTheme"
+homepage = "https://github.com/ohzqq/hugo-dotlottie"
 
 # If you have a running demo of the theme.
-demosite = "https://gohugo.io"
-
-tags = ["blog", "company"]
-features = ["some", "awesome", "features"]
+#demosite = "https://gohugo.io"
