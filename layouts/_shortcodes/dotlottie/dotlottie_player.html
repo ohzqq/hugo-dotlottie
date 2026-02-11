@@ -32,7 +32,7 @@
 {{ with .Get "Autoplay" }}
   {{$params = $params | append "Autoplay=true" }}
 {{end}}
-  {{$q := delimit $params "&"}}
+  {{$q := $params "&"}}
   {{$src := printf "%s?%s" site.BaseURL $q}}
 
 <div class="dotlottie-container" 
