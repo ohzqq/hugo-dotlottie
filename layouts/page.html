@@ -1,7 +1,8 @@
 {{ define "main" }}
   <h1>{{ .Title }}</h1>
-  <div> 
-    {{ partial "breadcrumbs.html" }}
-  </div>
+  <nav> 
+    {{ partial "breadcrumbs.html" .}}
+  </nav>
+  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
   {{ .Content }}
 {{ end }}
