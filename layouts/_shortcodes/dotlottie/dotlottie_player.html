@@ -1,45 +1,72 @@
 {{$params := slice}}
-{{ with .Get "AspectRatio" }}
-  {{$val := printf "AspectRatio=%s" (urlquery . | safeURL)}}
-  {{$params = $params | append $val }}
-{{ end }}
+{{$iframe := ""}}
 {{$src := ""}}
 {{$page := .Page}}
+{{$query := newScratch}}
+
 {{with .Page.Resources.GetMatch "*.lottie"}}
   {{$src = urls.JoinPath $page.RelPermalink .}}
-  {{$src = printf "Src=%s" (urlquery $src | safeURL)}}
 {{else with .Get "Src" }}
-  {{$src = printf "Src=%s" (urlquery . | safeURL)}}
+  {{$src = .}}
 {{ end }}
-  {{$params = $params | append $src }}
+
+{{ $query.SetInMap "q" "Src" $src }}
+
+{{with $page.Params.cfg }}
+  {{$url := urls.Parse (printf "https://example.com?" . )}}
+  {{ with $url.Query.Get "AspectRatio" }}
+    {{ $query.SetInMap "q" "AspectRatio" . }}
+  {{ end }}
+  {{ with $url.Query.Get "Mode" }}
+    {{ $query.SetInMap "q" "Mode" . }}
+  {{ end }}
+  {{ with $url.Query.Get "Speed" }}
+    {{ $query.SetInMap "q" "Speed" . }}
+  {{ end }}
+  {{ with $url.Query.Get "Bgcolor" }}
+    {{ $query.SetInMap "q" "Bgcolor" . }}
+  {{ end }}
+  {{ with $url.Query.Get "BgImg" }}
+    {{ $query.SetInMap "q" "BgImg" . }}
+  {{ end }}
+  {{ with $url.Query.Get "Loop" }}
+    {{ $query.SetInMap "q" "Loop" . }}
+  {{ end }}
+  {{ with $url.Query.Get "NoControls" }}
+    {{ $query.SetInMap "q" "NoControls" . }}
+  {{ end }}
+  {{ with $url.Query.Get "Autoplay" }}
+    {{ $query.SetInMap "q" "Autoplay" . }}
+  {{ end }}
+{{end}}
+
+{{ with .Get "AspectRatio" }}
+  {{ $query.SetInMap "q" "AspectRatio" . }}
+{{ end }}
 {{ with .Get "Mode" }}
-  {{$val := printf "Mode=%s" (urlquery . | safeURL)}}
-  {{$params = $params | append $val }}
+    {{ $query.SetInMap "q" "Mode" . }}
 {{ end }}
 {{ with .Get "Speed" }}
-  {{$val := printf "Speed=%s" (urlquery . | safeURL)}}
-  {{$params = $params | append $val }}
+    {{ $query.SetInMap "q" "Speed" . }}
 {{ end }}
 {{ with .Get "BgColor" }}
-  {{$val := printf "BgColor=%s" (urlquery . | safeURL)}}
-  {{$params = $params | append $val }}
+    {{ $query.SetInMap "q" "Bgcolor" . }}
 {{ end }}
 {{ with .Get "BgImg" }}
-  {{$val := printf "BgImg=%s" (urlquery . | safeURL)}}
-  {{$params = $params | append $val }}
+    {{ $query.SetInMap "q" "BgImg" . }}
 {{ end }}
 {{ with .Get "Loop" }}
-  {{$params = $params | append "Loop=true" }}
+    {{ $query.SetInMap "q" "Loop" . }}
 {{ end }}
 {{ with .Get "NoControls" }}
-  {{$params = $params | append "NoControls=true" }}
+    {{ $query.SetInMap "q" "NoControls" . }}
 {{ end }}
 {{ with .Get "Autoplay" }}
-  {{$params = $params | append "Autoplay=true" }}
+    {{ $query.SetInMap "q" "Autoplay" . }}
 {{end}}
-  {{$q := delimit $params "&"}}
+  {{$q := collections.Querify ($query.Get "q")}}
   {{$p := urls.JoinPath site.BaseURL "gottie" "player.html"}}
-  {{$iframe := printf "%s?%s" $p $q}}
+  {{$iframe = printf "%s?%s" $p $q}}
 
 <div class="dotlottie-container" 
      style="position: relative; overflow: hidden;
