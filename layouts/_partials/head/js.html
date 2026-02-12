@@ -1,10 +1,10 @@
-{{- with resources.Get "js/main.js" }}
+{{- with resources.Get "js/dot-player.js" }}
   {{- $opts := dict
     "minify" (not hugo.IsDevelopment)
     "sourceMap" (cond hugo.IsDevelopment "external" "")
-    "targetPath" "js/main.js"
+    "targetPath" "js/dot-player.js"
   }}
-  {{- with . | js.Build $opts }}
+  {{- with . }}
     {{- if hugo.IsDevelopment }}
       <script src="{{ .RelPermalink }}"></script>
     {{- else }}
