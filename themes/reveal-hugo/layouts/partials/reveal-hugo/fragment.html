@@ -1,7 +1,0 @@
-{{/* Render .Inner before processing the shortcode. */}}
-{{ $_hugo_config := `{ "version": 1 }` }}
-<span class='fragment r-fit-text
-{{ with .class }}{{.}}{{end}}' 
-      {{ with .index }}data-fragment-index='{{ . }}'{{ end }}>
-  {{ .Content }}
-</span>
