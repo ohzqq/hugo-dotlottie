@@ -33,4 +33,5 @@ go.work.sum
 testdata/
 public/
 static/eg/
+static/dot
 content/

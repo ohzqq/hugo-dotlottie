@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <header>
+  <h1>{{ .Title }}</h1>
+  </header>
+    {{if .Site.Params.dotLottie.breadcrumbs}}
+  <nav> 
+    {{ partial "breadcrumbs.html" .}}
+  </nav>
+  {{end}}
+  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  {{ .Content }}
+  {{ range .Pages }}
+    <article>
+      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+    </article>
+  {{ end }}
+{{ end }}

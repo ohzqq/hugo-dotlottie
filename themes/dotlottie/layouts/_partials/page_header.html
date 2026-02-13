@@ -1,0 +1,6 @@
+  <h1 data-pagefind-body>{{ .Title }}</h1>
+{{if .Site.Params.dotLottie.breadcrumbs}}
+    {{ partial "breadcrumbs.html" .}}
+{{end}}
+{{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+

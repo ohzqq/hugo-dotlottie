@@ -1,0 +1,17 @@
+{{ partialCached "head/css.html" . }}
+    <style> 
+:root {
+  --r-main-color: #ffbf00;
+}
+.reveal {
+ aspect-ratio:   {{with .Site.Params.reveal_hugo.aspect_ratio}} {{. | safeCSS}} {{end}};
+}
+.reveal .slides {
+ text-align: left;
+ margin: 0;
+}
+.reveal p {
+  padding: 0.25em;
+  {{with .Site.Params.reveal_hugo.text_bg}}background: {{.}}{{end}}
+}
+    </style>

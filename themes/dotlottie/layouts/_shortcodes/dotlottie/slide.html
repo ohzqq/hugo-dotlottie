@@ -1,0 +1,44 @@
+{{- $scratch := .Scratch -}}
+{{- $scratch.Set "slides" slice -}}
+{{- $content := .Get "content" -}}
+{{- $inner := .Inner -}}
+{{- if $content -}}
+  {{- $lookup := split $content "." }}
+  {{ $markdownContent := .Page.Site.Data }}
+  {{- range $dataPath := $lookup -}}
+    {{- $markdownContent = index $markdownContent $dataPath -}}
+  {{- end -}}
+  {{- $html := $markdownContent | markdownify -}}
+  {{- $html := replace $html "<hr>" "<hr />" -}}
+  {{- $slides := split $html "<hr />" -}}
+  {{- range $slides -}}
+    {{- $scratch.Add "slides" . -}}
+  {{- end -}}
+{{- else -}}
+  {{- $scratch.Add "slides" "" -}}
+{{- end -}}
+{{- $params := . -}}
+{{- $noPrefix := slice "id" "class" -}}
+{{- $noOutput := slice "content" "template" -}}
+{{- $template := $params.Get "template" -}}
+{{- range $sindex, $svalue := $scratch.Get "slides" }}
+
+<section data-noprocess data-shortcode-slide
+  {{- range $key, $value := $.Params -}}
+    {{- if not (in $noOutput $key) -}}
+      {{- $attrName := cond (in $noPrefix $key) $key (delimit (slice "data" $key) "-") }}
+      {{ $attrName | safeHTMLAttr }}="{{ $value }}"
+    {{- end -}}
+  {{- end -}}
+{{with $inner}}
+    {{ printf "data-background-iframe=%s" . | safeHTMLAttr }}
+{{end}}
+         >
+
+  <span class="r-fit-text slide-text" > 
+  {{ $svalue | safeHTML }}
+{{- if ne $sindex (sub (len ($scratch.Get "slides")) 1) -}}
+  </span>
+</section>
+{{- end -}}
+{{- end -}}

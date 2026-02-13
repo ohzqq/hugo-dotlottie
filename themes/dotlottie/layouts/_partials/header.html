@@ -1,0 +1,5 @@
+<a href="/"><h1>{{ site.Title }}</h1></a>
+
+{{- if .Site.Menus.main -}}
+  {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+{{end}}

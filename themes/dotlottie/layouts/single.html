@@ -1,0 +1,10 @@
+{{- /* layouts/_default/single.html */ -}}
+{{ define "main" }}
+  <article data-pagefind-body>
+  {{partial "page_header.html" .}}
+    {{/* The main content of your post */}}
+    <section>
+      {{ .Content }}
+    </section>
+  </article>
+{{ end }}
