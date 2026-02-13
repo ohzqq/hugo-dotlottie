@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default " en" }}">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+  {{- if .Site.Params.themes -}}
+  {{/* Demo mode takes precedence: Use the first theme from the list by default. */}}
+  {{- $stylesheet_url := (index .Site.Params.themes 0).url -}}
+  <link id="theme-style" rel="stylesheet" href="{{ $stylesheet_url }}">
+  {{- else if .Site.Params.theme -}}
+  {{/* Production mode: Use the single specified theme from local resources. */}}
+  {{- $stylesheet_res := resources.Get .Site.Params.theme | toCSS (dict "minify" true) | fingerprint -}}
+  <link id="theme-style" rel="stylesheet" href="{{ $stylesheet_res.RelPermalink }}"
+    integrity="{{ $stylesheet_res.Data.Integrity }}">
+  {{- end -}}
+
+  {{- partial "css-overwrite.html" . -}}
+  {{- partial "syntax.html" . -}}
+
+  <title>
+    {{- if .IsHome -}}
+    {{- with .Site.Title}}{{- . -}}{{end -}}
+      {{- else -}}
+        {{- .Title }} | {{- with .Site.Title}}{{- . -}}{{end -}}
+      {{- end -}}
+  </title>
+
+  {{- /* Favicons */ -}}
+  <link rel="icon" href="{{ .Site.Params.faviconSVG | relURL }}" type="image/svg+xml">
+  <link rel="shortcut icon" href="{{ .Site.Params.faviconICO | relURL }}">
+  <link rel="apple-touch-icon" href="{{ .Site.Params.appleTouchIcon | relURL }}">
+
+</head>
+
+<body>
+  <header>
+    {{- if .Site.Params.themes -}}
+    {{/* partial "theme-selector.html" . */}}
+    {{- end -}}
+    <div>
+      <h2>
+        <a href="/">{{ .Site.Title }}</a>
+      </h2>
+
+      {{- if .Site.Menus.main -}}
+      <nav>
+        <h4>
+          {{ $links := slice }}
+          {{- range .Site.Menus.main -}}
+          {{ $link := printf `<a href="%s">%s</a>` (.URL | relURL) .Name }}
+          {{ $links = $links | append $link }}
+          {{- end -}}
+          {{- delimit $links " | " | safeHTML -}}
+        </h4>
+      </nav>
+      {{- end -}}
+    </div>
+  </header>
+
+  <main>
+    {{- block "main" . }}{{ end -}}
+  </main>
+
+  <footer>
+  </footer>
+
+</body>
+{{ if or .Params.quickjs .Site.Params.quickjs }}{{ partial "quickjs.html" . }}{{ end }}
+
+</html>

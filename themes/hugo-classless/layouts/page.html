@@ -1,0 +1,14 @@
+{{ define "main" }}
+  <article>
+    <header data-pagefind-body>
+      <h1>{{ .Title }}</h1>
+    </header>
+
+  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+
+    {{/* The main content of your post */}}
+    <div data-pagefind-body>
+      {{ .Content | safeHTML }}
+    </div>
+  </article>
+{{ end }}

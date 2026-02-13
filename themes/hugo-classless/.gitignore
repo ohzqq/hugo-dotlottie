@@ -1,0 +1,5 @@
+layouts_hugo
+public
+exampleSite/.hugo_build.lock
+exampleSite/resources/_gen/assets/css
+.DS_Store

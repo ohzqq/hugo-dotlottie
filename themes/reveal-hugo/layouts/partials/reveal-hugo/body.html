@@ -1,0 +1,39 @@
+<!-- override this partial to add content before the body tag closes -->
+{{with .Site.Params.reveal_hugo.drag}}
+<script src="/assets/libs/interact.min.js"></script>
+<script> 
+  const drag = document.querySelector(".slides")
+var position = { x: 0, y: 0 }
+
+interact('.draggable').draggable({
+  listeners: {
+    start (event) {
+      //console.log(event.type, event.target)
+    },
+    move (event) {
+      position.x += event.dx
+      position.y += event.dy
+
+      event.target.style.transform =
+        `translate(${position.x}px, ${position.y}px)`
+    },
+  }
+})
+
+Reveal.on('fragmentshown', (event) => {
+  reset();
+});
+Reveal.on('fragmenthidden', (event) => {
+  reset();
+});
+
+Reveal.on('slidechanged', (e) => {
+  reset();
+});
+function reset() {
+  position.x = 0
+  position.y = 0
+  drag.style.transform = ''
+}
+</script>
+{{end}}

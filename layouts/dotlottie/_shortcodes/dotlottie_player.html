@@ -1,0 +1,16 @@
+<dot-player src="{{.Site.BaseURL}}{{.Page.RelPermalink}}{{.Params.Src}}"
+	{{- with .Params.AspectRatio}} aspect-ratio="{{.}}" {{end -}}
+	{{with .Params.ID}} id="{{.}}" {{end -}}
+	{{with .Params.Speed}} speed="{{.}}" {{end -}}
+	{{with .Params.AssetDir}} assets="{{.}}" {{end -}}
+	{{with .Params.Mode}} mode="{{.}}" {{end -}}
+	{{with .Params.AnimationID}} animation-id="{{.}}" {{end -}}
+	{{with .Params.Bg}} bg="{{.}}" {{end -}}
+	{{with .Params.Frame}} frame="{{.}}" {{end -}}
+	{{with .Params.NoControls}} nocontrols {{end -}}
+	{{with .Params.Loop}} loop {{end -}}
+	{{with .Params.Autoplay}} autoplay {{end -}}
+>
+</dot-player>
+		<script type="module" src="/{{.Params.AssetDir}}/gottie/player.js"></script>
+

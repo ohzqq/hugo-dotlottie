@@ -1,0 +1,31 @@
+{{ define "main" }}
+  {{ .Content }}
+
+  <header>
+    {{/* The list's title, e.g., "Posts", is the main heading on this page. */}}
+    <h3>{{ .Title }}</h3>
+    {{/* Render _index.md content if it exists */}}
+    {{ if .Content }}
+      <div>{{ .Content }}</div>
+    {{ end }}
+  </header>
+
+  <hr />
+{{ $pages := site.Sections  }}
+{{ $paginator := .Paginate $pages.ByTitle 10 }}
+
+{{ range $paginator.Pages }}
+    <article>
+      {{/* Post titles in a list are secondary headings */}}
+      <h4>
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+      </h4>
+      {{/* Use the correct <time> element for dates */}}
+      <p><em><small><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></small></em></p>
+    </article>
+{{ end }}
+
+  <nav> 
+{{ partial "pagination.html" . }}
+  </nav>
+{{ end }}

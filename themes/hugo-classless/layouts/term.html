@@ -1,0 +1,20 @@
+{{ define "main" }}
+{{$base := path.BaseName .RelPermalink}}
+{{$link := urls.JoinPath (replace .RelPermalink "." "") "feed.xml"}}
+{{$desc := fmt.Print "feed for " .Title}}
+{{ $pod := dict 
+"title" .Title 
+"description" $desc
+"url" (urls.URLize $link)
+}}
+  <a href="{{ urls.JoinPath  $link}}">
+  <h1>
+    {{ .Title }}
+{{partial "podlove.html" $pod}}
+  </h1>
+  </a>
+  {{ .Content }}
+  {{ range .Pages.Reverse }}
+    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+  {{ end }}
+{{ end }}

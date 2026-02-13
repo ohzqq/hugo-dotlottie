@@ -1,0 +1,67 @@
+<<<<<<< HEAD
+baseURL: 'https://example.org/'
+languageCode: 'en-US'
+title: 'My New Hugo Site'
+
+=======
+# hugo.yml
+baseURL: "https://example.org/"
+#baseURL: "https://ur.biyuti.ca"
+title: "home"
+theme: 
+- "reveal-hugo"
+
+menu:
+  main:
+  - name: "search"
+    pageRef: "/search"
+    weight: 9
+  - name: "tags"
+    pageRef: "/tags/"
+
+pagination.pagerSize: "9"
+buildFuture: true
+taxonomies:
+  subject: subject
+  series: series
+
+permalinks:
+  term:
+    series: '/series/:slug'
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+outputFormats:
+  Reveal:
+    baseName: index
+    mediaType: text/html
+    isHTML: true
+
+params:
+  reveal_hugo:
+    drag: true
+    text_bg: "#262626"
+    aspect_ratio: 16/9
+    position: bottomright
+    width: 300
+    height: 150
+    progress: false
+    embedded: true
+    controls_layout: edges
+    max_scale: 1
+    touch: false
+    hash: true
+    theme: night
+    plugins:
+      #- name: "RevealMenu"
+        #source: "plugin/menu/menu.js"
+        #css: "plugin/menu/menu.css"
+  AssetDir: assets
+  themes:
+  - name: "Pico"
+    url: "https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.amber.min.css"
+  - name: "HTML only"
+    url: ""
+>>>>>>> 3e0d36c (ok)

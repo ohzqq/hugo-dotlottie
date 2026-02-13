@@ -1,0 +1,7 @@
+.dot-thumb {
+	position: relative;
+}
+.dot-thumb-caption {
+	position: absolute;
+	bottom: 0;
+}
